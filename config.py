@@ -3,21 +3,21 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-MONGO_URI = os.getenv("MONGO_URI", "mongodb+srv://corndb:cornbotdb@cluster0.qkaprkc.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+MONGO_URI = "mongodb+srv://corndb:cornbotdb@cluster0.qkaprkc.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 
 BOT_TOKENS = [
-    os.getenv("BOT_TOKEN_1", "7727808398:AAE2o8UtxsSYhYUTJWePOni0jXZWo4ipVew"),
-    os.getenv("BOT_TOKEN_2", "8298170893:AAGEncRQjGsWzpulLn_27J7moxtSJ1K2avc"),
-    os.getenv("BOT_TOKEN_3", "8406916310:AAFKNaFmeYholPCkA2dXiQgnfI8p6WvldKU")
+    "7727808398:AAE2o8UtxsSYhYUTJWePOni0jXZWo4ipVew",
+    "8298170893:AAGEncRQjGsWzpulLn_27J7moxtSJ1K2avc",
+    "8406916310:AAFKNaFmeYholPCkA2dXiQgnfI8p6WvldKU"
 ]
 
-SAVED_CHANNEL_ID = int(os.getenv("SAVED_CHANNEL_ID", "-1003133705295"))
-MAIN_CHANNEL_ID = int(os.getenv("MAIN_CHANNEL_ID", "-1003132582396"))
-LOGGER_CHANNEL_ID = int(os.getenv("LOGGER_CHANNEL_ID", "-1003183652455"))
-STARTUP_LOG_GROUP_ID = int(os.getenv("STARTUP_LOG_GROUP_ID", "-1003154017737"))
+SAVED_CHANNEL_ID = -1003133705295
+MAIN_CHANNEL_ID = -1003132582396
+LOGGER_CHANNEL_ID = -1003183652455
+STARTUP_LOG_GROUP_ID = -1003154017737
 
-OWNER_ID = int(os.getenv("OWNER_ID", "7924074157"))
-SUDO_ID = int(os.getenv("SUDO_ID", "5294360309"))
+OWNER_ID = 7924074157
+SUDO_ID = 5294360309
 
 BOT_REQUIRED_CHANNELS = {
     1: [

@@ -10,20 +10,43 @@ async def check_force_subscribe(client: Client, user_id: int, bot_number: int):
     
     for channel in required_channels:
         try:
-            channel_username = channel.replace("https://t.me/", "").replace("+", "")
+            chat_identifier = channel
+            is_invite_link = False
             
-            if channel_username.startswith("+"):
-                channel_username = channel_username[1:]
+            if channel.startswith("+"):
+                chat_identifier = f"https://t.me/{channel}"
+                is_invite_link = True
+            elif "t.me/+" in channel:
+                is_invite_link = True
+            elif "https://t.me/" in channel:
+                chat_identifier = channel.replace("https://t.me/", "")
             
-            member = await client.get_chat_member(channel_username, user_id)
-            
-            if member.status in ["left", "kicked"]:
-                not_joined.append(channel)
-        except UserNotParticipant:
-            not_joined.append(channel)
+            if is_invite_link:
+                try:
+                    chat_info = await client.get_chat(chat_identifier)
+                    chat_id = chat_info.id
+                    
+                    try:
+                        member = await client.get_chat_member(chat_id, user_id)
+                        if member.status in ["left", "kicked"]:
+                            not_joined.append(channel)
+                    except UserNotParticipant:
+                        not_joined.append(channel)
+                except Exception as e:
+                    print(f"Cannot access invite channel {channel}: {e}")
+                    print(f"Bot must be added to private channel first!")
+                    not_joined.append(channel)
+            else:
+                try:
+                    member = await client.get_chat_member(chat_identifier, user_id)
+                    if member.status in ["left", "kicked"]:
+                        not_joined.append(channel)
+                except UserNotParticipant:
+                    not_joined.append(channel)
+                    
         except Exception as e:
             print(f"Error checking channel {channel}: {e}")
-            continue
+            not_joined.append(channel)
     
     return not_joined
 
