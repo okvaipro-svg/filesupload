@@ -293,3 +293,8 @@ Highly advanced, feature-rich Telegram multi-bot system with beautiful UI, compr
 - Created leaderboard system
 - Added startup logging to specified group
 - All configurations visible in code for easy deployment
+- **FIXED**: Force subscribe system now properly handles private invite links (+slug format)
+  - Bot first resolves invite link to get chat_id
+  - Then checks user membership using chat_id
+  - Requires bot to be added to private channels as member/admin
+  - Works seamlessly for both private and public channels
